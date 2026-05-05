@@ -35,7 +35,7 @@ header-includes:
 
 | Réf. | Description | Section |
 |------|-------------|---------|
-| Fig. 1 | Rendements cumulatifs — MV vs VW (2014–2025) | 3.1 |
+| Fig. 1 | Rendements cumulatifs — MV vs VW (2014–2024) | 3.1 |
 | Fig. 2 | Évolution WACI — tous portefeuilles (2013–2024) | 3.2 |
 | Fig. 3 | Évolution CF — tous portefeuilles (2013–2024) | 3.2 |
 | Fig. 4 | Rendements cumulatifs — MV vs MV(0.5) | 4.1 |
@@ -98,7 +98,7 @@ Le rapport est organisé comme suit : la Section 2 décrit les données et la m�
 
 - Données de marché : janvier 1999 – décembre 2025
 - Données carbone : 2002–2024 (fiables à partir de ~2010)
-- Analyse : décembre 2013 → décembre 2024 (rebalancement annuel), janvier 2014 → décembre 2025 (performance mensuelle, T = 144 mois)
+- Analyse : décembre 2013 → décembre 2023 (rebalancement annuel, 11 rebalancements), janvier 2014 → décembre 2024 (performance mensuelle, T = 132 mois)
 
 **Tableau T1 — Statistiques descriptives (données post-nettoyage) :**
 
@@ -124,7 +124,7 @@ Tout RI inférieur à 0,50 USD est traité comme NaN. Ce seuil élimine les penn
 Sur la fenêtre d'estimation de 120 mois (τ = 120), toute firme dont plus de 50 % des rendements mensuels sont exactement zéro est exclue. Le dénominateur est τ = 120 (et non le nombre d'observations non-NaN), conformément au descriptif.
 
 **Ensemble d'investissement (Investment Set)**
-Pour chaque rebalancement annuel Y ∈ {2013, …, 2024}, une firme est incluse si elle satisfait simultanément :
+Pour chaque rebalancement annuel Y ∈ {2013, …, 2023}, une firme est incluse si elle satisfait simultanément :
 
 - **Condition C1** : ISIN valide
 - **Condition C2** : données de prix disponibles dans la fenêtre [Y−10+1, Y] (10 ans)
@@ -176,7 +176,7 @@ Le descriptif ne précise pas comment traiter les NaN dans le calcul de la moyen
 
 **Portefeuille minimum-variance hors-échantillon $P_{oos}^{(mv)}$**
 
-À chaque rebalancement annuel Y ∈ {2013, …, 2024}, on résout :
+À chaque rebalancement annuel Y ∈ {2013, …, 2023}, on résout :
 
 $$\min_{\alpha} \; \alpha' \hat{\Sigma}_Y \alpha \quad \text{s.t.} \quad \mathbf{1}'\alpha = 1, \; \alpha \geq 0$$
 
@@ -200,26 +200,26 @@ $$\alpha_{i,t+k} = \alpha_{i,t+k-1} \times \frac{1 + R_{i,t+k}}{1 + R_{p,t+k}}$$
 
 où $R_{p,t+k} = \sum_i \alpha_{i,t+k-1} R_{i,t+k}$ est le rendement du portefeuille au mois t+k. Les poids ne sont donc recalculés (via la QP) qu'une fois par an.
 
-**Taux sans risque :** Rf = 0 (non spécifié dans le descriptif — choix conservateur et transparent).
+**Taux sans risque :** $R_f = 0$ (aucune donnée de taux sans risque dans le fichier source). *Correction prof. Jondeau : $R_f$ doit respecter la même convention que $\bar{R}_p$ — si $\bar{R}_p$ est annualisé, $R_f$ doit l'être aussi (taux sans risque moyen annualisé sur l'échantillon). Le paramètre `RF_ANN` dans le notebook est désormais explicite (valeur 0,0 — à mettre à jour si les données T-bill sont disponibles).*
 
 ### Résultats de performance — Partie I (2 pages)
 
-**Tableau T2 — Statistiques de performance (janv. 2014 – déc. 2025, T = 144 mois)**
+**Tableau T2 — Statistiques de performance (janv. 2014 – déc. 2024, T = 132 mois)** *(chiffres indicatifs — à recalculer après re-exécution du notebook avec la période corrigée)*
 
 | Statistique | $P_{oos}^{(mv)}$ | $P^{(vw)}$ |
 |-------------|-----------------|------------|
-| Rendement annualisé | **9,81 %** | 7,74 % |
-| Volatilité annualisée | **10,70 %** | 13,22 % |
-| Ratio de Sharpe | **0,917** | 0,586 |
-| Rendement cumulé | **187,4 %** | 120,7 % |
+| Rendement annualisé | **~9,8 %** *(à recalculer)* | ~7,7 % *(à recalculer)* |
+| Volatilité annualisée | **~10,7 %** *(à recalculer)* | ~13,2 % *(à recalculer)* |
+| Ratio de Sharpe | **~0,9** *(à recalculer)* | ~0,6 *(à recalculer)* |
+| Rendement cumulé | **~(à recalculer)** | ~(à recalculer) |
 | Drawdown maximal | *(à calculer)* | *(à calculer)* |
 | Skewness | *(à calculer)* | *(à calculer)* |
 
-**Figure 1** — Rendements cumulatifs : MV vs VW (2014–2025). *(insérer fig1_cumulative_returns_part1.png)*
+**Figure 1** — Rendements cumulatifs : MV vs VW (jan. 2014 – déc. 2024, base = 1). *(insérer fig1_cumulative_returns_part1.png)*
 
 **Analyse :**
 
-Le portefeuille MV surperforme le benchmark VW sur toute la période avec un ratio de Sharpe nettement supérieur (0,917 vs 0,586). Cette surperformance provient principalement d'une **volatilité significativement réduite** (−2,5 pp annualisés) plutôt que d'un rendement brut plus élevé.
+Le portefeuille MV surperforme le benchmark VW sur toute la période avec un ratio de Sharpe nettement supérieur *(~0,9 vs ~0,6 — chiffres exacts à recalculer)*. Cette surperformance provient principalement d'une **volatilité significativement réduite** (−2,5 pp annualisés) plutôt que d'un rendement brut plus élevé.
 
 La surperformance est cohérente avec la littérature sur l'effet "low-volatility" en Asie-Pacifique, documenté notamment par Blitz & Van Vliet (2007) et Frazzini & Pedersen (2014). Dans la région PAC, les grandes firmes à forte capitalisation (qui dominent le VW) sont souvent des conglomérats diversifiés avec une volatilité naturellement élevée, tandis que le MV identifie des firmes à faible variance idiosyncratique.
 
@@ -352,14 +352,14 @@ La contrainte carbone porte sur le **Carbon Footprint** (CF = Σ α_i E_i / Cap_
 
 | Statistique | $P_{oos}^{(mv)}$ | $P_{oos}^{(mv)}(0.5)$ | Δ |
 |-------------|-----------------|----------------------|---|
-| Rend. annualisé | 9,81 % | **9,91 %** | +0,10 pp |
-| Volatilité | 10,70 % | 10,88 % | +0,18 pp |
-| Sharpe | 0,917 | 0,911 | −0,006 |
-| Rend. cumulé | 187,4 % | **190,0 %** | +2,6 pp |
+| Rend. annualisé | ~9,8 % | **~9,9 %** | ~+0,1 pp | *(à recalculer)* |
+| Volatilité | ~10,7 % | ~10,9 % | ~+0,2 pp | *(à recalculer)* |
+| Sharpe | ~0,9 | ~0,9 | ~−0,006 | *(à recalculer)* |
+| Rend. cumulé | ~(à recalculer) | ~(à recalculer) | — |
 
 **Figure 4** — Rendements cumulatifs : MV vs MV(0.5). *(insérer fig4_cumret_mv_vs_mv50.png)*
 
-**Analyse :** La contrainte carbone de 50 % **n'a pas de coût significatif** sur la performance financière (Sharpe quasi-identique). La légère baisse du Sharpe (0,917 → 0,911) est économiquement négligeable. Ce résultat, contre-intuitif au premier abord, s'explique par :
+**Analyse :** La contrainte carbone de 50 % **n'a pas de coût significatif** sur la performance financière (Sharpe quasi-identique). La légère baisse du Sharpe *(valeurs exactes à recalculer)* est économiquement négligeable. Ce résultat, contre-intuitif au premier abord, s'explique par :
 
 1. L'ensemble d'investissement PAC contient des firmes à faible volatilité ET faible empreinte carbone (notamment dans les secteurs technologie et santé japonais/australien)
 2. Le MV sans contrainte concentre déjà certains poids sur des utilities à faible volatilité mais haute émission → la contrainte carbone redirige vers des firmes à faible émission ET faible volatilité
@@ -390,10 +390,10 @@ Cette stratégie minimise l'**erreur de suivi (tracking error)** par rapport au 
 
 | Statistique | $P^{(vw)}$ | $P_{oos}^{(vw)}(0.5)$ | Δ |
 |-------------|-----------|----------------------|---|
-| Rend. annualisé | 7,74 % | 7,73 % | −0,01 pp |
-| Volatilité | 13,22 % | 13,23 % | +0,01 pp |
-| Sharpe | 0,586 | 0,585 | −0,001 |
-| Rend. cumulé | 120,7 % | 120,3 % | −0,4 pp |
+| Rend. annualisé | ~7,7 % | ~7,7 % | ~−0,01 pp | *(à recalculer)* |
+| Volatilité | ~13,2 % | ~13,2 % | ~+0,01 pp | *(à recalculer)* |
+| Sharpe | ~0,6 | ~0,6 | ~−0,001 | *(à recalculer)* |
+| Rend. cumulé | ~(à recalculer) | ~(à recalculer) | — |
 
 **Figure 5** — Rendements cumulatifs : VW vs VW(0.5). *(insérer fig5_cumret_vw_vs_vw50.png)*
 
@@ -427,10 +427,10 @@ La formule $(1-\theta)^{Y-Y_0+1}$ donne pour Y = 2013 : $(0.9)^1 = 0.9$ × CF_ba
 
 | Statistique | $P^{(vw)}$ | $P_{oos}^{(vw)}(NZ)$ |
 |-------------|-----------|---------------------|
-| Rend. annualisé | 7,74 % | 7,72 % |
-| Volatilité | 13,22 % | 13,24 % |
-| Sharpe | 0,586 | 0,583 |
-| Rend. cumulé | 120,7 % | 120,0 % |
+| Rend. annualisé | ~7,7 % | ~7,7 % | *(à recalculer)* |
+| Volatilité | ~13,2 % | ~13,2 % | *(à recalculer)* |
+| Sharpe | ~0,6 | ~0,6 | *(à recalculer)* |
+| Rend. cumulé | ~(à recalculer) | ~(à recalculer) |
 
 La trajectoire net-zéro est encore plus proche du benchmark VW que la stratégie VW(0.5). En 2013–2016, le plafond NZ est moins contraignant que le plafond 50 % car la base 2013 est relativement élevée. En 2020–2024, la contrainte devient plus serrée mais la structure de l'ensemble d'investissement PAC permet toujours de la satisfaire à faible coût de tracking error.
 
@@ -438,21 +438,21 @@ La trajectoire net-zéro est encore plus proche du benchmark VW que la stratégi
 
 ## Comparaison globale des 5 portefeuilles (1 page)
 
-**Tableau T4 — Synthèse performance et carbone (2014–2025)**
+**Tableau T4 — Synthèse performance et carbone (2014–2024)** *(à recalculer)*
 
 | Portefeuille | Rend. Ann. | Vol. Ann. | Sharpe | Cum. | CF moy. | WACI moy. |
 |-------------|-----------|---------|--------|------|---------|---------|
-| $P_{oos}^{(mv)}$ | 9,81 % | 10,70 % | 0,917 | 187,4 % | — | — |
-| $P^{(vw)}$ | 7,74 % | 13,22 % | 0,586 | 120,7 % | — | — |
-| $P_{oos}^{(mv)}(0.5)$ | 9,91 % | 10,88 % | 0,911 | 190,0 % | −50 % | — |
-| $P_{oos}^{(vw)}(0.5)$ | 7,73 % | 13,23 % | 0,585 | 120,3 % | −50 % | — |
-| $P_{oos}^{(vw)}(NZ)$ | 7,72 % | 13,24 % | 0,583 | 120,0 % | ≤ 28 % en 2024 | — |
+| $P_{oos}^{(mv)}$ | ~9,8 % | ~10,7 % | ~0,9 | ~(à recalc.) | — | — |
+| $P^{(vw)}$ | ~7,7 % | ~13,2 % | ~0,6 | ~(à recalc.) | — | — |
+| $P_{oos}^{(mv)}(0.5)$ | ~9,9 % | ~10,9 % | ~0,9 | ~(à recalc.) | −50 % | — |
+| $P_{oos}^{(vw)}(0.5)$ | ~7,7 % | ~13,2 % | ~0,6 | ~(à recalc.) | −50 % | — |
+| $P_{oos}^{(vw)}(NZ)$ | ~7,7 % | ~13,2 % | ~0,6 | ~(à recalc.) | ≤ 28 % en 2023 | — |
 
 *(compléter CF moy. et WACI moy. avec les valeurs du notebook)*
 
 **Figure 6** — Comparaison finale des 5 portefeuilles. *(insérer fig6_final_comparison.png)*
 
-**Résultat clé :** Dans la région PAC sur 2014–2025, la réduction de l'empreinte carbone de 50 % est atteignable **sans sacrifice financier mesurable** pour toutes les stratégies. Ce résultat est fort et constitue le message principal du rapport.
+**Résultat clé :** Dans la région PAC sur 2014–2024, la réduction de l'empreinte carbone de 50 % est atteignable **sans sacrifice financier mesurable** pour toutes les stratégies. Ce résultat est fort et constitue le message principal du rapport.
 
 ---
 
@@ -460,7 +460,7 @@ La trajectoire net-zéro est encore plus proche du benchmark VW que la stratégi
 
 ### Résultats principaux
 
-1. **Surperformance MV :** Le minimum-variance hors-échantillon surperforme le benchmark VW avec un Sharpe de 0,917 contre 0,586. La surperformance est robuste sur toute la période 2014–2025.
+1. **Surperformance MV :** Le minimum-variance hors-échantillon surperforme le benchmark VW (Sharpe MV > Sharpe VW — valeurs à recalculer). La surperformance est robuste sur toute la période 2014–2024.
 
 2. **Pas de coût financier de la contrainte carbone :** Les trois stratégies carbone-contraintes sont quasi-indiscernables du portefeuille non-contraint correspondant en termes financiers.
 
@@ -488,7 +488,7 @@ L'estimateur LW introduit un biais de shrinkage qui favorise les firmes à varia
 
 **L5 — Période d'évaluation**
 
-La période 2014–2025 inclut des régimes de taux très différents (ZIRP 2014–2021, remontée des taux 2022–2023, normalisation 2024–2025). Les stratégies carbone-contraintes n'ont pas été testées sous différents régimes économiques. La robustesse des résultats dans un environnement inflationniste ou de récession reste à explorer.
+La période 2014–2024 inclut des régimes de taux très différents (ZIRP 2014–2021, remontée des taux 2022–2023, normalisation 2023–2024). Les stratégies carbone-contraintes n'ont pas été testées sous différents régimes économiques. La robustesse des résultats dans un environnement inflationniste ou de récession reste à explorer.
 
 ---
 
@@ -498,9 +498,9 @@ Ce projet a implémenté et évalué cinq stratégies de portefeuille sur la ré
 
 **Principaux enseignements :**
 
-1. Le portefeuille minimum-variance hors-échantillon **surperforme significativement le benchmark VW** (Sharpe 0,917 vs 0,586) grâce à une réduction de la volatilité de 2,5 pp annualisés, sans sacrifice de rendement brut.
+1. Le portefeuille minimum-variance hors-échantillon **surperforme significativement le benchmark VW** (Sharpe MV > Sharpe VW — chiffres exacts à recalculer) grâce à une réduction de la volatilité annualisée, sans sacrifice de rendement brut.
 
-2. La **contrainte carbone de 50 %** est atteignable sans coût financier mesurable dans la région PAC, que ce soit en optimisation MV (−0,006 de Sharpe) ou en minimisation de tracking error (−0,001 de Sharpe). Ce résultat est encourageant pour les investisseurs souhaitant intégrer des objectifs climatiques sans compromettre leur mandate de performance.
+2. La **contrainte carbone de 50 %** est atteignable sans coût financier mesurable dans la région PAC, que ce soit en optimisation MV ou en minimisation de tracking error (différences de Sharpe négligeables — à recalculer). Ce résultat est encourageant pour les investisseurs souhaitant intégrer des objectifs climatiques sans compromettre leur mandate de performance.
 
 3. La **trajectoire net-zéro** (−10 %/an) reste réalisable sur la période observée, mais la contrainte se reserre fortement après 2020. L'évolution du tissu industriel PAC (transition énergétique, croissance du secteur technologique) sera déterminante pour la viabilité à long terme.
 
