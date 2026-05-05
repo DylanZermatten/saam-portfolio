@@ -1,0 +1,26 @@
+# Données brutes (fichier fourni par l'enseignant, non partageable publiquement)
+Sustainability.xlsx
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Jupyter
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+*.pyo
+
+# Claude Code
+.claude/
+prompt_claude_code.md
+
+# Environnements Python
+.env
+.venv
+env/
+venv/
+
+# Outputs temporaires
+*.log
